@@ -53,11 +53,7 @@ services:
     restart: unless-stopped
     ports:
       - "6379:6379"
-    environment:
-      - REDIS_PASSWORD=${REDIS_PASSWORD:-}
-    volumes:
-      - ./data/redis_data:/data
-    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD:-}
+    command: redis-server --appendonly yes
     networks:
       - app-network
 

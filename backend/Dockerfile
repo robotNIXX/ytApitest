@@ -10,8 +10,7 @@ RUN apt-get update && apt-get install -y \
     zip \
     unzip \
     libzip-dev \
-    libpq-dev \
-    libredis-dev
+    libpq-dev
 
 # Установка PHP расширений
 RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip pdo_pgsql
