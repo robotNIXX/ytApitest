@@ -35,10 +35,29 @@ services:
     environment:
       - APP_ENV=local
       - APP_DEBUG=true
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=${REDIS_PASSWORD:-}
     env_file:
       - .env
     depends_on:
       - database
+      - redis
+    networks:
+      - app-network
+
+  # Redis - Cache & Session Storage
+  redis:
+    image: redis:7-alpine
+    container_name: ${APP_NAME}-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD:-}
+    volumes:
+      - ./data/redis_data:/data
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD:-}
     networks:
       - app-network
 
