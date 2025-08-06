@@ -6,9 +6,7 @@ use App\DTO\RecommendationsDTO;
 use App\Enum\LastVideoPeriodEnum;
 use App\Models\YoutubeChannel;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Redis;
-use function Symfony\Component\String\b;
+use Illuminate\Support\Facades\Log;
 
 class ChannelsService
 {
@@ -22,6 +20,7 @@ class ChannelsService
 
     public function findTheRecommendations(RecommendationsDTO $recommendationsDTO)
     {
+        $timeStart = Carbon::now();
         $where = [];
         $query = YoutubeChannel::query();
         if ($recommendationsDTO->category) {
@@ -74,6 +73,9 @@ class ChannelsService
         }
 
         $results = $query->get();
+        $timeEnd = Carbon::now();
+
+        Log::info('DURATION OF DB OPERATION: {diff} milliseconds', ['diff' => $timeStart->diffInMilliseconds($timeEnd)]);
 
         return $results;
     }
