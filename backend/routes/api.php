@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\API\ChannelsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,11 +15,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-// Базовый API маршрут
-Route::get('/', function () {
-    return response()->json([
-        'message' => 'API is working!',
-        'version' => '1.0.0',
-        'timestamp' => now()
-    ]);
-});
+Route::get('/recommendations', [ChannelsController::class, 'recommendations']);

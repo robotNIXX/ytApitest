@@ -17,9 +17,14 @@ return new class extends Migration
             $table->string('category');
             $table->integer('subscribers_count');
             $table->bigInteger('average_views');
-            $table->integer('engagement_rate');
+            $table->float('engagement_rate', 2);
             $table->string('language');
             $table->string('region');
+            $table->date('last_video_published_at');
+            $table->index('last_video_published_at');
+            $table->index('category');
+            $table->index('region');
+            $table->index('language');
             $table->timestamps();
         });
     }

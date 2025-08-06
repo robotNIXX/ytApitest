@@ -37,7 +37,6 @@ services:
       - APP_DEBUG=true
       - REDIS_HOST=redis
       - REDIS_PORT=6379
-      - REDIS_PASSWORD=${REDIS_PASSWORD:-}
     env_file:
       - .env
     depends_on:
