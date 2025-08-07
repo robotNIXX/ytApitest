@@ -14,15 +14,13 @@ docker-compose exec backend composer install
 4. Настроить .env файл:
 ```bash
 cp .env.example .env
-cp .env.example .env.testing
-
-5. Сгенерировать ключ:
+cp .env.example .env.testing 
+``` 
+5. Сгенерировать ключ и настройте необходимые переменные:
 ```bash
 docker-compose exec backend php artisan key:generate
 ```
-```
-и настройте необходимые переменные
-
+    
 6. Запустить миграции:
 ```bash
 docker-compose exec backend php artisan migrate  
