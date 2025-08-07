@@ -25,17 +25,17 @@ class ChannelsService
         $query = YoutubeChannel::query();
         if ($recommendationsDTO->category) {
             $where[] = [
-                'category', '=', $recommendationsDTO->category,
+                'category', '=', ucfirst($recommendationsDTO->category),
             ];
         }
         if ($recommendationsDTO->language) {
             $where[] = [
-                'language', '=', $recommendationsDTO->language,
+                'language', '=', ucfirst($recommendationsDTO->language),
             ];
         }
         if ($recommendationsDTO->region) {
             $where[] = [
-                'region', '=', $recommendationsDTO->region,
+                'region', '=', ucfirst($recommendationsDTO->region),
             ];
         }
         if ($recommendationsDTO->max_subscribers) {
@@ -45,7 +45,7 @@ class ChannelsService
         }
         if ($recommendationsDTO->min_subscribers) {
             $where[] = [
-                'subscribers_count', '<=', $recommendationsDTO->min_subscribers,
+                'subscribers_count', '>=', $recommendationsDTO->min_subscribers,
             ];
         }
         if ($recommendationsDTO->last_video_period) {

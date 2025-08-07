@@ -41,7 +41,9 @@ services:
       - .env
     depends_on:
       - database
+      - database_test
       - redis
+      - redis-test
     networks:
       - app-network
 
@@ -52,6 +54,17 @@ services:
     restart: unless-stopped
     ports:
       - "6379:6379"
+    command: redis-server --appendonly yes
+    networks:
+      - app-network
+
+  # Redis - Cache & Session Storage
+  redis-test:
+    image: redis:7-alpine
+    container_name: ${APP_NAME}-redis-test
+    restart: unless-stopped
+    ports:
+      - "6380:6379"
     command: redis-server --appendonly yes
     networks:
       - app-network
@@ -85,6 +98,24 @@ services:
       - .env
     volumes:
       - ./data/postgres_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+  # Database - PostgreSQL
+  database_test:
+    image: postgres:15-alpine
+    container_name: ${APP_NAME}-db-test
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=${DB_DATABASE:-laravel}
+      - POSTGRES_USER=${DB_USERNAME:-laravel}
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-password}
+    ports:
+      - "5433:5432"
+    env_file:
+      - .env
+    volumes:
+      - ./data/postgres_data_test:/var/lib/postgresql/data
     networks:
       - app-network
 
