@@ -15,13 +15,70 @@ class ChannelsController extends Controller
 {
     public function __construct(
         private ChannelsService $channelsService
-    )
+    ) {}
+
+
+    /**
+     * @OA\Get(
+     *     path="/api/recommendations",
+     *     summary="Get recommendations",
+     *     tags={"Channels"},
+     *     @OA\Parameter(
+     *         name="category",
+     *         in="query",
+     *         required=false,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Parameter(
+     *         name="min_subscribers",
+     *         in="query",
+     *         required=false,
+     *         @OA\Schema(type="integer")
+     *     ),   
+     *     @OA\Parameter(
+     *         name="max_subscribers",
+     *         in="query",
+     *         required=false,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Parameter(
+     *         name="language",
+     *         in="query",
+     *         required=false,
+     *         @OA\Schema(type="string")
+     *     ), 
+     *     @OA\Parameter(
+     *         name="region",
+     *         in="query",
+     *         required=false,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Parameter(
+     *         name="last_video_period",
+     *         in="query",
+     *         required=false,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Parameter(
+     *         name="sort_key",
+     *         in="query",
+     *         required=false,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Parameter(
+     *         name="sort_direction",
+     *         in="query",
+     *         required=false,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation"
+     *     )
+     * )
+     */
+    public function recommendations(ChannelsRequest $request)
     {
-
-    }
-
-
-    public function recommendations(ChannelsRequest $request) {
         $recommendationsDTO = new RecommendationsDTO(...$request->all());
         $timeStart = Carbon::now();
         $results = ['data' => json_decode(Cache::get($recommendationsDTO->getTheKey()), true)];

@@ -16,7 +16,8 @@ docker-compose exec backend composer install
 cp .env.example .env
 cp .env.example .env.testing 
 ``` 
-5. Сгенерировать ключ и настройте необходимые переменные:
+5. Сгенерировать ключ и настройте необходимые переменные:  
+__переменные необходимо настроить в .env и .env.testing файлах__
 ```bash
 docker-compose exec backend php artisan key:generate
 ```
