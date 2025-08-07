@@ -26,14 +26,14 @@ class ChannelsController extends Controller
         $timeStart = Carbon::now();
         $results = ['data' => json_decode(Cache::get($recommendationsDTO->getTheKey()), true)];
         $timeEnd = Carbon::now();
-        Log::info('CACHE GET OPERATION DURATION: {diff} milliseconds', ['diff' => $timeStart->diffInMilliseconds($timeEnd)]);
+        Log::channel('db')->info('CACHE GET OPERATION DURATION: {diff} milliseconds', ['diff' => $timeStart->diffInMilliseconds($timeEnd)]);
         if (!$results['data']) {
             $records = $this->channelsService->findTheRecommendations($recommendationsDTO);
             $results = Recommendation::collection($records);
             $timeStart = Carbon::now();
             Cache::put($recommendationsDTO->getTheKey(), $results->toJson(), now()->addMinutes(10));
             $timeEnd = Carbon::now();
-            Log::info('CACHE PUT OPERATION DURATION: {diff} milliseconds', ['diff' => $timeStart->diffInMilliseconds($timeEnd)]);
+            Log::channel('db')->info('CACHE PUT OPERATION DURATION: {diff} milliseconds', ['diff' => $timeStart->diffInMilliseconds($timeEnd)]);
         }
         return $results;
     }

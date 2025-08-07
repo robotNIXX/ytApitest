@@ -75,7 +75,7 @@ class ChannelsService
         $results = $query->get();
         $timeEnd = Carbon::now();
 
-        Log::info('DURATION OF DB OPERATION: {diff} milliseconds', ['diff' => $timeStart->diffInMilliseconds($timeEnd)]);
+        Log::channel('db')->info('DURATION OF DB OPERATION: {diff} milliseconds', ['diff' => $timeStart->diffInMilliseconds($timeEnd)]);
 
         return $results;
     }
