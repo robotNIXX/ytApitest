@@ -2,7 +2,7 @@
 
 ## Установка
 
-1. Установить Docker и Docker Compose
+1. Установить Docker
 2. Запустить контейнеры:
 ```bash
 docker compose up --build -d
